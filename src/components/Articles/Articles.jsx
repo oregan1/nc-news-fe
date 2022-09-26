@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ArticleCard from './ArticleCard';
+import requests from '../../utils/requests';
 
 const Articles = () => {
     const [articles, setArticles] = useState();
@@ -8,9 +9,9 @@ const Articles = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get('https://tomnews.herokuapp.com/api/articles')
-        .then(({data}) => {
-            setArticles(data.articles);
+        requests.getArticles()
+        .then((res) => {
+            setArticles(res.articles);
             setIsLoading(false)
         })
     },[]);
