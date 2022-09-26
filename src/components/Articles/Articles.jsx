@@ -11,18 +11,13 @@ const Articles = () => {
     const [articles, setArticles] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
+
     useEffect(() => {
-        setIsLoading(true);
-        requests.getArticles()
-        .then((res) => {
-            if (topic !== 'allArticles'){
-                setArticles(res.filter((article) => {
-                    return article.topic == topic;
-                }))
-            }else{
-                setArticles(res);
-            }
-            setIsLoading(false);
+    setIsLoading(true);
+        requests.getArticles(topic)
+        .then((data) => {
+            setArticles(data)
+            setIsLoading(false)
         })
     },[topic]);
 

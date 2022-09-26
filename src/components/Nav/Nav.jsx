@@ -17,7 +17,7 @@ const Nav = () => {
 
     return <div className='navBar'>
         <Link className='navBarLink' to='/'>Home</Link>
-        <Link className='navBarLink' to='/articles/allArticles'>All articles</Link>
+        <Link className='navBarLink' to='/articles'>All articles</Link>
         {isLoading?<></>:
             topics.map((topic) => {
                 return <Link className='navBarLink' key={topic.slug} to={`/articles/${topic.slug}`}>{topic.slug}</Link>
