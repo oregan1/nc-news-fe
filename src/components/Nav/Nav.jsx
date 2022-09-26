@@ -1,10 +1,29 @@
+import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
+import requests from '../../utils/requests';
+import './Nav.css';
 
 const Nav = () => {
-    return <div>
-        <Link to='/'>Home</Link>
-        <Link to='/articles'>All articles</Link>
-    </div>
+    const [topics, setTopics] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        setIsLoading(true);
+        requests.getTopics()
+        .then((res) => {
+            setTopics(res);
+            setIsLoading(false);
+        })
+    },[])
+
+    return <div className='navBar'>
+        <Link className='navBarLink' to='/'>Home</Link>
+        <Link className='navBarLink' to='/articles/allArticles'>All articles</Link>
+        {isLoading?<></>:
+            topics.map((topic) => {
+                return <Link className='navBarLink' key={topic.slug} to={`/articles/${topic.slug}`}>{topic.slug}</Link>
+            })
+        }
+        </div>
 }
 
 export default Nav;
