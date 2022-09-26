@@ -10,41 +10,29 @@ const Articles = () => {
     const {topic} = useParams();
     const [articles, setArticles] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [articlesByTopic, setArticlesByTopic] = useState();
-    const [gettingBaseArticles, setGettingBaseArticles] = useState(true);;
 
     useEffect(() => {
         setIsLoading(true);
-        setGettingBaseArticles(true);
         requests.getArticles()
         .then((res) => {
-            setArticles(res);
-            setArticlesByTopic(res);
-            setGettingBaseArticles(false);
-        })
-        .then(() => {
-            if(!gettingBaseArticles){
-                filterArticlesByTopic();
+            if (topic !== 'allArticles'){
+                setArticles(res.filter((article) => {
+                    return article.topic == topic;
+                }))
+            }else{
+                setArticles(res);
             }
             setIsLoading(false);
         })
     },[topic]);
 
-    const filterArticlesByTopic = () => {
-        if (topic !== 'allArticles'){
-            setArticlesByTopic(articles.filter((article) => {
-                return article.topic == topic;
-            }))
-        }
-    }
-    
 
     if(isLoading){
         return <p>Loading articles...</p>
     }else{
         return <div>
             <ul>
-                {articlesByTopic.map((article) => {
+                {articles.map((article) => {
                     return <li key={article.article_id}>
                         <ArticleCard article={article}/>
                     </li>
