@@ -50,18 +50,7 @@ const SingleArticle = () => {
         })
     }
 
-    // const getComments = () => {
-    //     setLoadingComments(true);
-    //     requests.getComments(curArticle.article_id)
-    //     .then((data) => {
-    //         setComments(data);
-    //         setLoadingComments(false);
-    //     })
-    // }
 
-    useEffect(() => {
-
-    },[loadingComments])
 
     
 
