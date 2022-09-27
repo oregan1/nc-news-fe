@@ -5,7 +5,7 @@ import requests from "../../utils/requests";
 
 const SingleArticle = () => {
     const {article_id} = useParams();
-    const [curArticle, setCurArticle] = useState();
+    const [curArticle, setCurArticle] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -15,13 +15,18 @@ const SingleArticle = () => {
             setCurArticle(data);
             setIsLoading(false);
         })
-    })
+    },[])
 
     if (isLoading) {
         return <p>Loading article...</p>
     }else{
         return <div>
-        {curArticle.title}
+        <h3>{curArticle.title}</h3>
+        <p>Author: {curArticle.author}</p>
+        <p>{curArticle.body}</p>
+        <p>Created at: {curArticle.created_at}</p>
+        <p>Votes: {curArticle.votes}</p>
+        <p>Comments: {curArticle.comment_count}</p>
     </div>
     }
 

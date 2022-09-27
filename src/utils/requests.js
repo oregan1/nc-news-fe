@@ -10,9 +10,8 @@ const getArticles = (topic) => {
 }
 
 const getArticle = (id) => {
-    return newsApi.get('/articles/', {params:{article_id: id}}).then(({data}) => {
-        console.log(data);
-        return data.articles;
+    return newsApi.get(`/articles/${id}`).then(({data}) => {
+        return data.article;
     })
 } 
 
