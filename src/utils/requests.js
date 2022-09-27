@@ -3,8 +3,8 @@ import axios from 'axios';
 const newsApi = axios.create({baseURL: 'https://tomnews.herokuapp.com/api'})
 
 
-const getArticles = (topic) => {
-    return newsApi.get('/articles/', {params:{topic: topic}}).then(({data}) => {
+const getArticles = (topic, sort_by, order) => {
+    return newsApi.get('/articles/', {params:{topic: topic, sort_by: sort_by, order: order}}).then(({data}) => {
         return data.articles;
     })
 }

@@ -84,7 +84,8 @@ const Comments = ({article_id, user, comment_count}) => {
                         <CommentCard comment={comment} user={user}/>
                         {comment.author === user?
                             <button 
-                            onClick={() => {removeComment(comment.comment_id)}}>Delete</button>:null}
+                            onClick={() => {removeComment(comment.comment_id)}}>
+                                Delete</button>:null}
                     </li>
                 })}
             </ul>
