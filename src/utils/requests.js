@@ -21,4 +21,10 @@ const getTopics = () => {
     })
 }
 
-export default {getArticles, getTopics, getArticle};
+const addVotes = (id, input) => {
+    return newsApi.patch(`/articles/${id}`, input).then(({data}) => {
+        return data.article;
+    })
+}
+
+export default {getArticles, getTopics, getArticle, addVotes};
