@@ -26,9 +26,9 @@ const Articles = () => {
         return <p>Loading articles...</p>
     }else{
         return <div>
-            <ul>
+            <ul className='articleList'>
                 {articles.map((article) => {
-                    return <li key={article.article_id}>
+                    return <li key={article.article_id} className='articleListElement'>
                         <ArticleCard article={article}/>
                     </li>
                 })}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import requests from "../../utils/requests";
+import Comments from "../Comments/Comments";
 
 
 const SingleArticle = () => {
@@ -48,6 +49,10 @@ const SingleArticle = () => {
         })
     }
 
+
+
+    
+
     if (isLoading) {
         return <p>Loading article...</p>
     }else{
@@ -58,7 +63,10 @@ const SingleArticle = () => {
         <p>Created at: {curArticle.created_at}</p>
         <p>Votes: {votes}</p>
         <button onClick={() => vote()} id="voteButton">{voteText}</button>
-        <p>Comments: {curArticle.comment_count}</p>
+        <h4>Comments:</h4>
+        <Comments article_id={article_id}/>
+        <p>Comment count: {curArticle.comment_count}</p>
+
     </div>
     }
     
