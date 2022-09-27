@@ -9,6 +9,7 @@ const SingleArticle = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [votes, setVotes] = useState();
     const [voted, setVoted] = useState(false);
+    const [voteText, setVoteText] = useState('vote');
 
     useEffect(() => {
         setIsLoading(true);
@@ -18,16 +19,21 @@ const SingleArticle = () => {
             setVotes(data.votes);
             setIsLoading(false);
         })
+        .catch((err) => {
+            if(err.code === "ERR_NETWORK"){
+                alert('Internet connection is offline..')
+            }
+        })
     },[])
 
     const vote = () => {
         let amount = 0
         if (!voted){
-            document.getElementById('voteButton').innerHTML="unvote"
+            setVoteText('unvote');
             amount = 1;
             setVoted(true);
         }else{
-            document.getElementById('voteButton').innerHTML="vote"
+            setVoteText('vote');
             amount = -1;
             setVoted(false);
         }
@@ -36,7 +42,9 @@ const SingleArticle = () => {
             setVotes(data.votes);
         })
         .catch((err) => {
-            console.log(err); //alert?
+            if(err.code === "ERR_NETWORK"){
+                alert('Internet connection is offline..')
+            }
         })
     }
 
@@ -49,7 +57,7 @@ const SingleArticle = () => {
         <p>{curArticle.body}</p>
         <p>Created at: {curArticle.created_at}</p>
         <p>Votes: {votes}</p>
-        <button onClick={() => vote()} id="voteButton">Vote</button>
+        <button onClick={() => vote()} id="voteButton">{voteText}</button>
         <p>Comments: {curArticle.comment_count}</p>
     </div>
     }
