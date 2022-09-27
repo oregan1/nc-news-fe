@@ -39,4 +39,16 @@ const addComment = (id, input) => {
     })
 }
 
-export default {getArticles, getTopics, getArticle, addVotes, getComments, addComment};
+const deleteComment = (id) => {
+    return newsApi.delete(`/comments/${id}`).then(({data}) => {
+        return data.comment;
+    })
+}
+
+export default {getArticles, 
+    getTopics, 
+    getArticle, 
+    addVotes, 
+    getComments,
+    addComment, 
+    deleteComment};

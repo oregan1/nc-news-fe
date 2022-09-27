@@ -1,8 +1,8 @@
 
-const CommentCard = ({comment}) => {
+const CommentCard = ({comment,user}) => {
     return <div>
         <h5>{comment.author}:</h5>
-        {comment.body}
+        <p>{comment.body}</p>
     </div>
 }
 
