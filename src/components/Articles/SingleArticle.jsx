@@ -20,6 +20,14 @@ const SingleArticle = () => {
             setVotes(data.votes);
             setIsLoading(false);
         })
+        .then(() => {
+            setLoadingComments(true);
+            requests.getComments(article_id)
+            .then((data) => {
+                setComments(data);
+                setLoadingComments(false);
+            })
+        })
     },[])
 
     const vote = () => {
@@ -42,19 +50,24 @@ const SingleArticle = () => {
         })
     }
 
-    const getComments = () => {
-        setLoadingComments(true);
-        requests.getComments(curArticle.article_id)
-        .then((data) => {
-            setComments(data);
-            setLoadingComments(false);
-        })
-    }
+    // const getComments = () => {
+    //     setLoadingComments(true);
+    //     requests.getComments(curArticle.article_id)
+    //     .then((data) => {
+    //         setComments(data);
+    //         setLoadingComments(false);
+    //     })
+    // }
+
+    useEffect(() => {
+
+    },[loadingComments])
+
+    
 
     if (isLoading) {
         return <p>Loading article...</p>
     }else{
-        getComments();
         return <div>
         <h3>{curArticle.title}</h3>
         <p>Author: {curArticle.author}</p>
@@ -69,6 +82,7 @@ const SingleArticle = () => {
                 {comments.map((comment) => {
                     return <li>
                         {comment.body}
+                        <p>-----</p>
                     </li>
                 })}
             </ul>
