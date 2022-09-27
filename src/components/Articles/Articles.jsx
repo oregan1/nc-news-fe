@@ -1,20 +1,26 @@
 import axios from 'axios';
+import { useParams } from "react-router";
 import { useEffect, useState } from 'react';
 import ArticleCard from './ArticleCard';
+import requests from '../../utils/requests';
+
 import './Articles.css';
 
 const Articles = () => {
+    const {topic} = useParams();
     const [articles, setArticles] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
+
     useEffect(() => {
-        setIsLoading(true);
-        axios.get('https://tomnews.herokuapp.com/api/articles')
-        .then(({data}) => {
-            setArticles(data.articles);
+    setIsLoading(true);
+        requests.getArticles(topic)
+        .then((data) => {
+            setArticles(data)
             setIsLoading(false)
         })
-    },[]);
+    },[topic]);
+
 
     if(isLoading){
         return <p>Loading articles...</p>
