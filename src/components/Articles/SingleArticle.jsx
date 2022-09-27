@@ -70,6 +70,7 @@ const SingleArticle = () => {
                 <ul>
                 {comments.map((comment) => {
                     return <li>
+                        <h5>{comment.author}:</h5>
                         {comment.body}
                         <p>-----</p>
                     </li>
