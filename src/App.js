@@ -8,6 +8,7 @@ import Nav from './components/Nav/Nav';
 import Title from './components/Title/Title';
 
 function App() {
+  const user = 'jessjelly'
 
   return (
     <div>
@@ -17,7 +18,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/articles' element={<Articles/>} />
         <Route path='/filteredarticles/:topic' element={<Articles/>} />
-        <Route path='/articles/:article_id' element={<SingleArticle />} />
+        <Route path='/articles/:article_id' element={<SingleArticle user={user}/>} />
       </Routes>
     </div>
   );
