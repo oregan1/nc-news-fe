@@ -10,6 +10,7 @@ const Comments = ({article_id, user, comment_count}) => {
     const [isPostingComment, setIsPostingComment] = useState(false);
     const [posted, setPosted] = useState(false);
     const [commentCount, setCommentCount] = useState();
+    const [isDeletingComment, setIsDeletingComment] = useState(false);
 
     const [isError, setIsError] = useState(false);
     const [errorMesage, setErrorMesage] = useState();
@@ -53,9 +54,14 @@ const Comments = ({article_id, user, comment_count}) => {
     }
 
     const removeComment = (id) => {
+        setIsDeletingComment(true);
         requests.deleteComment(id)
         .then((data) => {
-            console.log(data);
+            setCommentCount(commentCount - 1);
+            setComments(comments.filter((comment) => {
+                return comment.comment_id !== id;
+            }))
+            setIsDeletingComment(false);
         })
     }
 
@@ -71,6 +77,7 @@ const Comments = ({article_id, user, comment_count}) => {
             <button onClick={postComment} disabled={isPostingComment}>post</button>
             {posted?<p>Posted!</p>:null}
             {isPostingComment?<p>Posting...</p>:null}
+            {isDeletingComment?<p>Deleting...</p>:null}
             <ul>
                 {comments.map((comment) => {
                     return <li key={comment.comment_id}>
