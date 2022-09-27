@@ -48,6 +48,13 @@ const Comments = ({article_id, user}) => {
         })
     }
 
+    const removeComment = (id) => {
+        requests.deleteComment(id)
+        .then((data) => {
+            console.log(data);
+        })
+    }
+
     if (loadingComments){
         return <p>Loading comments...</p>
     }else{
@@ -60,7 +67,10 @@ const Comments = ({article_id, user}) => {
             <ul>
                 {comments.map((comment) => {
                     return <li key={comment.comment_id}>
-                        <CommentCard comment={comment} />
+                        <CommentCard comment={comment} user={user}/>
+                        {comment.author === user?
+                            <button 
+                            onClick={() => {removeComment(comment.comment_id)}}>Delete</button>:null}
                     </li>
                 })}
             </ul>
