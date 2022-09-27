@@ -3,24 +3,29 @@ import requests from "../../utils/requests";
 import CommentCard from "./CommentCard";
 
 
-const Comments = ({article_id, user}) => {
+const Comments = ({article_id, user, comment_count}) => {
     const [comments, setComments] = useState();
     const [loadingComments, setLoadingComments] = useState(true);
     const [newComment, setNewComment] = useState();
     const [isPostingComment, setIsPostingComment] = useState(false);
     const [posted, setPosted] = useState(false);
+    const [commentCount, setCommentCount] = useState();
+
+    const [isError, setIsError] = useState(false);
+    const [errorMesage, setErrorMesage] = useState();
+
 
     useEffect(() => {
         setLoadingComments(true);
         requests.getComments(article_id)
         .then((data) => {
             setComments(data);
+            setCommentCount(comment_count)
             setLoadingComments(false);
         })
         .catch((err) => {
-            if(err.code === "ERR_NETWORK"){
-                alert('Internet connection is offline..')
-            }
+            setIsError(true);
+            setErrorMesage(err.message);
         })
     },[])
 
@@ -32,19 +37,18 @@ const Comments = ({article_id, user}) => {
         setIsPostingComment(true);
         setPosted(false);
         if (!newComment){
-            console.log('no')
             return;
         }
         requests.addComment(article_id, {"username":user, "body":newComment})
         .then((data) => {
             setComments([data,...comments]);
             setIsPostingComment(false);
+            setCommentCount(commentCount + 1);
             setPosted(true);
         })
         .catch((err) => {
-            if(err.code === "ERR_NETWORK"){
-                alert('Internet connection is offline..')
-            }
+            setIsError(true);
+            setErrorMesage(err.message);
         })
     }
 
@@ -56,11 +60,14 @@ const Comments = ({article_id, user}) => {
     }
 
     if (loadingComments){
-        return <p>Loading comments...</p>
+        return <div>
+            {isError?<p>{errorMesage}</p>:<p>Loading comments...</p>}
+            </div>
     }else{
         return <div>
+            {isError?<p>{errorMesage}</p>:<div>
             <label htmlFor="commentInput">Comment:</label>
-            <input type="text" id="commentInput" onChange={handleChange}></input>
+            <textarea name="commentInput" onChange={handleChange}></textarea>
             <button onClick={postComment} disabled={isPostingComment}>post</button>
             {posted?<p>Posted!</p>:null}
             {isPostingComment?<p>Posting...</p>:null}
@@ -74,6 +81,8 @@ const Comments = ({article_id, user}) => {
                     </li>
                 })}
             </ul>
+            <p>Comment count: {commentCount}</p>
+           </div>}
         </div>
     }
 }
