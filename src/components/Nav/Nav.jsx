@@ -4,7 +4,7 @@ import requests from '../../utils/requests';
 import './Nav.css';
 
 const Nav = () => {
-    const [topics, setTopics] = useState();
+    const [topics, setTopics] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         setIsLoading(true);
@@ -18,7 +18,7 @@ const Nav = () => {
     return <div className='navBar'>
         <Link className='navBarLink' to='/'>Home</Link>
         <Link className='navBarLink' to='/articles'>All articles</Link>
-        {isLoading?<></>:
+        {isLoading?null:
             topics.map((topic) => {
                 return <Link className='navBarLink' key={topic.slug} to={`/articles/${topic.slug}`}>{topic.slug}</Link>
             })
