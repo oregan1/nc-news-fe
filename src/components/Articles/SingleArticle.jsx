@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import requests from "../../utils/requests";
+import Comments from "../Comments/Comments";
 
 
 const SingleArticle = () => {
@@ -10,8 +11,6 @@ const SingleArticle = () => {
     const [votes, setVotes] = useState();
     const [voted, setVoted] = useState(false);
     const [voteText, setVoteText] = useState('vote');
-    const [comments, setComments] = useState();
-    const [loadingComments, setLoadingComments] = useState(true);
 
     useEffect(() => {
         setIsLoading(true);
@@ -25,14 +24,6 @@ const SingleArticle = () => {
             if(err.code === "ERR_NETWORK"){
                 alert('Internet connection is offline..')
             }
-        })
-        .then(() => {
-            setLoadingComments(true);
-            requests.getComments(article_id)
-            .then((data) => {
-                setComments(data);
-                setLoadingComments(false);
-            })
         })
     },[])
 
@@ -72,19 +63,9 @@ const SingleArticle = () => {
         <p>Created at: {curArticle.created_at}</p>
         <p>Votes: {votes}</p>
         <button onClick={() => vote()} id="voteButton">{voteText}</button>
-        <p>Comment count: {curArticle.comment_count}</p>
         <h4>Comments:</h4>
-        {loadingComments?<p>Loading comments..</p>:
-                <ul>
-                {comments.map((comment) => {
-                    return <li>
-                        <h5>{comment.author}:</h5>
-                        {comment.body}
-                        <p>-----</p>
-                    </li>
-                })}
-            </ul>
-        }
+        <Comments article_id={article_id}/>
+        <p>Comment count: {curArticle.comment_count}</p>
 
     </div>
     }
