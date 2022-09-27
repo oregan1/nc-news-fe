@@ -4,7 +4,7 @@ import requests from "../../utils/requests";
 import Comments from "../Comments/Comments";
 
 
-const SingleArticle = () => {
+const SingleArticle = ({user}) => {
     const {article_id} = useParams();
     const [curArticle, setCurArticle] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +64,7 @@ const SingleArticle = () => {
         <p>Votes: {votes}</p>
         <button onClick={() => vote()} id="voteButton">{voteText}</button>
         <h4>Comments:</h4>
-        <Comments article_id={article_id}/>
+        <Comments article_id={article_id} user={user}/>
         <p>Comment count: {curArticle.comment_count}</p>
 
     </div>
