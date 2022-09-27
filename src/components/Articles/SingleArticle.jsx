@@ -9,6 +9,8 @@ const SingleArticle = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [votes, setVotes] = useState();
     const [voted, setVoted] = useState(false);
+    const [comments, setComments] = useState();
+    const [loadingComments, setLoadingComments] = useState(true);
 
     useEffect(() => {
         setIsLoading(true);
@@ -40,9 +42,19 @@ const SingleArticle = () => {
         })
     }
 
+    const getComments = () => {
+        setLoadingComments(true);
+        requests.getComments(curArticle.article_id)
+        .then((data) => {
+            setComments(data);
+            setLoadingComments(false);
+        })
+    }
+
     if (isLoading) {
         return <p>Loading article...</p>
     }else{
+        getComments();
         return <div>
         <h3>{curArticle.title}</h3>
         <p>Author: {curArticle.author}</p>
@@ -50,7 +62,18 @@ const SingleArticle = () => {
         <p>Created at: {curArticle.created_at}</p>
         <p>Votes: {votes}</p>
         <button onClick={() => vote()} id="voteButton">Vote</button>
-        <p>Comments: {curArticle.comment_count}</p>
+        <p>Comment count: {curArticle.comment_count}</p>
+        <h4>Comments:</h4>
+        {loadingComments?<p>Loading comments..</p>:
+                <ul>
+                {comments.map((comment) => {
+                    return <li>
+                        {comment.body}
+                    </li>
+                })}
+            </ul>
+        }
+
     </div>
     }
     

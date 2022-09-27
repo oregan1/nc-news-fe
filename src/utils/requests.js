@@ -27,4 +27,10 @@ const addVotes = (id, input) => {
     })
 }
 
-export default {getArticles, getTopics, getArticle, addVotes};
+const getComments = (id) => {
+    return newsApi.get(`/articles/${id}/comments`).then(({data}) => {
+        return data.comments;
+    })
+}
+
+export default {getArticles, getTopics, getArticle, addVotes, getComments};
