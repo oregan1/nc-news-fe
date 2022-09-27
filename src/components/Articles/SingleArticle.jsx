@@ -11,6 +11,11 @@ const SingleArticle = ({user}) => {
     const [votes, setVotes] = useState();
     const [voted, setVoted] = useState(false);
     const [voteText, setVoteText] = useState('vote');
+    const [commentCount, setCommentCount] = useState();
+
+    const [isError, setIsError] = useState(false);
+    const [errorMesage, setErrorMesage] = useState();
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -18,14 +23,15 @@ const SingleArticle = ({user}) => {
         .then((data) => {
             setCurArticle(data);
             setVotes(data.votes);
+            setCommentCount(data.comment_count);
             setIsLoading(false);
         })
         .catch((err) => {
-            if(err.code === "ERR_NETWORK"){
-                alert('Internet connection is offline..')
-            }
+            setIsError(true);
+            setErrorMesage(err.message);
         })
     },[])
+
 
     const vote = () => {
         let amount = 0
@@ -43,9 +49,8 @@ const SingleArticle = ({user}) => {
             setVotes(data.votes);
         })
         .catch((err) => {
-            if(err.code === "ERR_NETWORK"){
-                alert('Internet connection is offline..')
-            }
+            setIsError(true);
+            setErrorMesage(err.message);
         })
     }
 
@@ -54,9 +59,12 @@ const SingleArticle = ({user}) => {
     
 
     if (isLoading) {
-        return <p>Loading article...</p>
+        return <div>
+        {isError?<p>{errorMesage}</p>:<p>Loading articles...</p>}
+        </div>
     }else{
         return <div>
+        {isError?<p>{errorMesage}</p>:<div>
         <h3>{curArticle.title}</h3>
         <p>Author: {curArticle.author}</p>
         <p>{curArticle.body}</p>
@@ -64,9 +72,8 @@ const SingleArticle = ({user}) => {
         <p>Votes: {votes}</p>
         <button onClick={() => vote()} id="voteButton">{voteText}</button>
         <h4>Comments:</h4>
-        <Comments article_id={article_id} user={user}/>
-        <p>Comment count: {curArticle.comment_count}</p>
-
+        <Comments article_id={article_id} user={user} comment_count={commentCount}/>
+        </div>}
     </div>
     }
     
