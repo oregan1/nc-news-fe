@@ -6,6 +6,8 @@ const ArticleCard = ({article}) => {
         <p>Author: {article.author}</p>
         <p>Topic: {article.topic}</p>
         <p>Comment count: {article.comment_count}</p>
+        <p>Votes: {article.votes}</p>
+        <p>Created: {article.created_at.slice(0,10)}</p>
         <Link to={`/articles/${article.article_id}`}>More</Link>
     </div>
 }
