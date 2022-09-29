@@ -28,7 +28,7 @@ const Comments = ({article_id, user, comment_count}) => {
             setIsError(true);
             setErrorMesage(err.message);
         })
-    },[])
+    },[article_id, comment_count])
 
     const handleChange = (event) => {
         setNewComment(event.target.value);
@@ -38,6 +38,7 @@ const Comments = ({article_id, user, comment_count}) => {
         setIsPostingComment(true);
         setPosted(false);
         if (!newComment){
+            setIsPostingComment(false);
             return;
         }
         requests.addComment(article_id, {"username":user, "body":newComment})
