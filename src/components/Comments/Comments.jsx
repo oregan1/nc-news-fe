@@ -6,11 +6,12 @@ import CommentCard from "./CommentCard";
 const Comments = ({article_id, user, comment_count}) => {
     const [comments, setComments] = useState();
     const [loadingComments, setLoadingComments] = useState(true);
-    const [newComment, setNewComment] = useState();
+    const [newComment, setNewComment] = useState('');
     const [isPostingComment, setIsPostingComment] = useState(false);
     const [posted, setPosted] = useState(false);
     const [commentCount, setCommentCount] = useState();
     const [isDeletingComment, setIsDeletingComment] = useState(false);
+
 
     const [isError, setIsError] = useState(false);
     const [errorMesage, setErrorMesage] = useState();
@@ -48,10 +49,16 @@ const Comments = ({article_id, user, comment_count}) => {
             setCommentCount(commentCount + 1);
             setPosted(true);
         })
+        .then(() => {
+            if(posted){
+                setNewComment('');
+            }
+        })
         .catch((err) => {
             setIsError(true);
             setErrorMesage(err.message);
         })
+
     }
 
     const removeComment = (id) => {
@@ -74,7 +81,7 @@ const Comments = ({article_id, user, comment_count}) => {
         return <div>
             {isError?<p>{errorMesage}</p>:<div>
             <label htmlFor="commentInput">Comment:</label>
-            <textarea name="commentInput" onChange={handleChange}></textarea>
+            <textarea name="commentInput" onChange={handleChange} value={newComment}></textarea>
             <button onClick={postComment} disabled={isPostingComment}>post</button>
             {posted?<p>Posted!</p>:null}
             {isPostingComment?<p>Posting...</p>:null}
