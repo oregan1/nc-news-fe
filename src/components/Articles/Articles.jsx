@@ -27,7 +27,6 @@ const Articles = () => {
     })
     .catch((err) => {
         setIsError(true);
-        console.log(err);
         if(err.code === 'ERR_BAD_REQUEST'){
             setErrorMesage('No topic with that name')
         }else{
