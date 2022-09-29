@@ -69,13 +69,16 @@ const SingleArticle = ({user}) => {
     }else{
         return <div>
         {isError?<p>{errorMesage}</p>:<div>
-        <h3>{curArticle.title}</h3>
-        <p>Author: {curArticle.author}</p>
-        <p>{curArticle.body}</p>
-        <p>Created at: {curArticle.created_at}</p>
-        <p>Votes: {votes}</p>
-        <button onClick={() => vote()} id="voteButton">{voteText}</button>
-        <h4>Comments:</h4>
+        <div className="singleArticle">
+            <h3 className="articleTitle">{curArticle.title}</h3>
+            <p><span className="singleArticleAttribute">Author: </span>{curArticle.author}</p>
+            <p className="articleBody">{curArticle.body}</p>
+            <p><span className="singleArticleAttribute">Created at: </span>{curArticle.created_at.slice(0,10)}</p>
+            <p><span className="singleArticleAttribute">Votes: </span>{votes}</p>
+            <button onClick={() => vote()} id="voteButton" className="voteButton">{voteText}</button>
+        </div>
+        <hr className="divider"/>
+        <h4 className="commentsTitle">Comments:</h4>
         <Comments article_id={article_id} user={user} comment_count={commentCount}/>
         </div>}
     </div>

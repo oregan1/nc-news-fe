@@ -1,3 +1,5 @@
+import './Comments.css';
+
 
 const CommentCard = ({comment,user}) => {
     return <div>

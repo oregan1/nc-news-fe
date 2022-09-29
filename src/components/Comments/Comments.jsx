@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import requests from "../../utils/requests";
 import CommentCard from "./CommentCard";
+import './Comments.css';
 
 
 const Comments = ({article_id, user, comment_count}) => {
@@ -80,19 +81,23 @@ const Comments = ({article_id, user, comment_count}) => {
     }else{
         return <div>
             {isError?<p>{errorMesage}</p>:<div>
-            <label htmlFor="commentInput">Comment:</label>
-            <textarea name="commentInput" onChange={handleChange} value={newComment}></textarea>
-            <button onClick={postComment} disabled={isPostingComment}>post</button>
+            <textarea name="commentInput" 
+                onChange={handleChange} 
+                value={newComment}
+                className="commentInput"
+                placeholder="Post a comment!"></textarea>
+            <button onClick={postComment} disabled={isPostingComment} className='postButton'>post</button>
             {posted?<p>Posted!</p>:null}
             {isPostingComment?<p>Posting...</p>:null}
             {isDeletingComment?<p>Deleting...</p>:null}
             <ul>
                 {comments.map((comment) => {
-                    return <li key={comment.comment_id}>
+                    return <li key={comment.comment_id} className='commentElement'>
                         <CommentCard comment={comment} user={user}/>
                         {comment.author === user?
                             <button 
-                            onClick={() => {removeComment(comment.comment_id)}}>
+                            onClick={() => {removeComment(comment.comment_id)}}
+                            className='deleteButton'>
                                 Delete</button>:null}
                     </li>
                 })}
