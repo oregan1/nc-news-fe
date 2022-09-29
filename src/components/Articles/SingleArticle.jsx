@@ -28,9 +28,13 @@ const SingleArticle = ({user}) => {
         })
         .catch((err) => {
             setIsError(true);
-            setErrorMesage(err.message);
+            if(err.code === 'ERR_BAD_REQUEST'){
+                setErrorMesage('No artilce with that ID')
+            }else{
+                setErrorMesage(err.message);
+            }
         })
-    },[])
+    },[article_id])
 
 
     const vote = () => {

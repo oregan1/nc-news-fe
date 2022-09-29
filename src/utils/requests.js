@@ -45,10 +45,12 @@ const deleteComment = (id) => {
     })
 }
 
-export default {getArticles, 
+const requests =  {getArticles, 
     getTopics, 
     getArticle, 
     addVotes, 
     getComments,
     addComment, 
     deleteComment};
+
+export default requests;
