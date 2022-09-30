@@ -7,7 +7,7 @@ Users can browse articles, filtering them by topic and can order the results to 
 Users can also comment and vote on specific articles depending on how they feel about them.
 
 # Find TNC News here:
-Link to app: 
+Link to app: https://tnc-news.herokuapp.com/
 
 # Requirements
 Requires at leat node 18.4
