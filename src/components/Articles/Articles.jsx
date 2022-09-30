@@ -69,13 +69,13 @@ const Articles = () => {
     }else{
         return <div>
             {isError?<p>{errorMesage}</p>:<div>
-            <select name="order" onChange={handleOrderChange}>
+            <select name="order" onChange={handleOrderChange} className='orderByBox'>
                 <option value="" hidden>Order: {order}</option>
                 <option value="desc">Desc</option>
                 <option value="asc">Asc</option>
             </select>
 
-            <select name="SORT_BY" onChange={handleSortChange}>
+            <select name="SORT_BY" onChange={handleSortChange} className='sortByBox'>
                 <option value="" hidden>Sort by: {sort_by}</option>
                 <option value="created_at">Created at</option>
                 <option value="title">Title</option>
