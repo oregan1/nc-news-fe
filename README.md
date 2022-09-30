@@ -10,7 +10,7 @@ Users can also comment and vote on specific articles depending on how they feel 
 Link to app: 
 
 # Requirements
-Requires at leat nonde 18.4
+Requires at leat node 18.4
 
 # Running locally
 To run TNC News locally first clone the repo with git clone.
