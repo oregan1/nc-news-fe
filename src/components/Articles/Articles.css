@@ -28,7 +28,7 @@
 
 
 .sortByBox{
-    display: inline-block;
+    float: left;
     margin-left: 100px;
 }
 

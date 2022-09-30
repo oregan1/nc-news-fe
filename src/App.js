@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router';
-import './App.css';
 import Articles from './components/Articles/Articles';
 import SingleArticle from './components/Articles/SingleArticle';
 import ErrorPage from './components/ErrorPage/ErrorPage';
@@ -15,7 +14,7 @@ function App() {
       <Title />      
       <Nav />
       <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={<Home user={user}/>} />
         <Route path='/articles' element={<Articles/>} />
         <Route path='/filteredarticles/:topic' element={<Articles/>} />
         <Route path='/articles/:article_id' element={<SingleArticle user={user}/>} />
